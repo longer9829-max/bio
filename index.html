@@ -27,37 +27,51 @@
       box-sizing: border-box;
     }
     
+    html, body{
+      width: 100%;
+      height: 100%;
+    }
+    
     body{
       min-height: 100vh;
       font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, var(--dark-1) 0%, var(--dark-2) 30%, var(--dark-3) 100%);
+      background: linear-gradient(135deg, #0a0e1a 0%, #0f1724 25%, #1a2840 50%, #0d3b66 75%, #02040a 100%);
+      background-size: 400% 400%;
       position: relative;
       overflow-x: hidden;
       color: var(--text-main);
+      animation: gradientShift 15s ease infinite;
     }
     
-    /* Animated background */
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Animated glass morphism background */
     body::before{
       content: '';
       position: fixed;
       top: 0;
       left: 0;
-      width: 200%;
-      height: 200%;
+      width: 100%;
+      height: 100%;
       background: 
-        radial-gradient(600px at 10% 20%, rgba(124, 92, 255, 0.08) 0%, transparent 80%),
-        radial-gradient(600px at 80% 80%, rgba(46, 161, 233, 0.08) 0%, transparent 80%);
-      animation: bgShift 15s ease-in-out infinite;
+        radial-gradient(800px at 10% 20%, rgba(124, 92, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(800px at 80% 80%, rgba(46, 161, 233, 0.12) 0%, transparent 50%),
+        radial-gradient(600px at 50% 50%, rgba(0, 217, 255, 0.08) 0%, transparent 50%);
+      animation: bgFlow 20s ease-in-out infinite;
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
+      filter: blur(40px);
     }
     
-    @keyframes bgShift {
+    @keyframes bgFlow {
       0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-50px, -50px); }
+      50% { transform: translate(30px, 30px); }
     }
     
-    /* Animated stars */
+    /* Floating particles */
     body::after{
       content: '';
       position: fixed;
@@ -66,18 +80,19 @@
       width: 100%;
       height: 100%;
       background-image: 
-        radial-gradient(2px 2px at 20% 30%, rgba(230, 238, 246, 0.8), rgba(230, 238, 246, 0)),
-        radial-gradient(2px 2px at 60% 70%, rgba(230, 238, 246, 0.5), rgba(230, 238, 246, 0)),
-        radial-gradient(1px 1px at 50% 50%, rgba(230, 238, 246, 0.6), rgba(230, 238, 246, 0)),
-        radial-gradient(1px 1px at 80% 10%, rgba(230, 238, 246, 0.7), rgba(230, 238, 246, 0));
+        radial-gradient(1px 1px at 10% 20%, rgba(230, 238, 246, 0.5), rgba(230, 238, 246, 0)),
+        radial-gradient(1px 1px at 30% 70%, rgba(124, 92, 255, 0.4), rgba(124, 92, 255, 0)),
+        radial-gradient(1px 1px at 60% 30%, rgba(46, 161, 233, 0.3), rgba(46, 161, 233, 0)),
+        radial-gradient(1px 1px at 80% 80%, rgba(0, 217, 255, 0.4), rgba(0, 217, 255, 0));
       background-repeat: repeat;
-      background-size: 200% 200%, 150% 150%, 100% 100%, 120% 120%;
-      animation: twinkle 5s ease-in-out infinite;
+      background-size: 300% 300%, 250% 250%, 200% 200%, 280% 280%;
+      animation: particleFloat 25s ease-in-out infinite;
       pointer-events: none;
-      opacity: 0.5;
+      opacity: 0.6;
+      z-index: 0;
     }
     
-    @keyframes twinkle {
+    @keyframes particleFloat {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 0.8; }
     }
@@ -94,38 +109,58 @@
     
     .card{
       width: 100%;
-      max-width: 780px;
+      max-width: 800px;
       background: linear-gradient(135deg, 
-        rgba(15, 23, 36, 0.8) 0%, 
-        rgba(26, 34, 54, 0.6) 100%);
-      border-radius: 28px;
+        rgba(15, 23, 36, 0.5) 0%, 
+        rgba(26, 34, 54, 0.35) 100%);
+      border-radius: 32px;
       padding: 48px;
-      border: 1px solid rgba(124, 92, 255, 0.2);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
       box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 0 60px rgba(124, 92, 255, 0.1);
-      backdrop-filter: blur(20px);
-      animation: cardFloat 6s ease-in-out infinite;
+        0 8px 32px rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 120px rgba(124, 92, 255, 0.08);
+      backdrop-filter: blur(30px) brightness(1.1);
+      -webkit-backdrop-filter: blur(30px) brightness(1.1);
+      animation: cardFloat 8s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 50%,
+        rgba(0, 217, 255, 0.05) 100%);
+      pointer-events: none;
+      border-radius: 32px;
     }
     
     @keyframes cardFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      0%, 100% { transform: translateY(0px); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 120px rgba(124, 92, 255, 0.08); }
+      50% { transform: translateY(-12px); box-shadow: 0 20px 60px rgba(31, 38, 135, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 140px rgba(124, 92, 255, 0.15); }
     }
     
     .head{
       display: flex;
-      gap: 24px;
+      gap: 28px;
       align-items: center;
       margin-bottom: 36px;
-      animation: slideInDown 0.8s ease-out;
+      animation: slideInDown 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 2;
     }
     
     @keyframes slideInDown {
       from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-30px);
       }
       to {
         opacity: 1;
@@ -135,90 +170,100 @@
     
     .avatar-wrapper{
       position: relative;
-      width: 140px;
-      height: 140px;
+      width: 150px;
+      height: 150px;
       flex-shrink: 0;
     }
     
-    .avatar-orb{
+    .avatar-ring{
       position: absolute;
-      inset: -8px;
-      border-radius: 28px;
+      inset: -12px;
+      border-radius: 32px;
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.4),
-        rgba(46, 161, 233, 0.3),
-        rgba(0, 217, 255, 0.2));
-      animation: orbitRotate 8s linear infinite;
-      filter: blur(8px);
+        rgba(124, 92, 255, 0.3),
+        rgba(46, 161, 233, 0.2),
+        rgba(0, 217, 255, 0.15));
+      animation: ringRotate 10s linear infinite;
+      filter: blur(6px);
     }
     
-    @keyframes orbitRotate {
+    @keyframes ringRotate {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
     
     .avatar-glow{
       position: absolute;
-      inset: 0;
-      border-radius: 28px;
+      inset: -4px;
+      border-radius: 32px;
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.3),
-        rgba(46, 161, 233, 0.2));
-      animation: glowPulse 3s ease-in-out infinite;
-      filter: blur(12px);
+        rgba(124, 92, 255, 0.25),
+        rgba(46, 161, 233, 0.15));
+      animation: glowPulse 4s ease-in-out infinite;
+      filter: blur(16px);
     }
     
     @keyframes glowPulse {
       0%, 100%{ 
-        box-shadow: 0 0 20px rgba(124, 92, 255, 0.4),
-                    0 0 40px rgba(124, 92, 255, 0.2);
+        box-shadow: 0 0 30px rgba(124, 92, 255, 0.5),
+                    0 0 60px rgba(124, 92, 255, 0.25);
+        opacity: 0.8;
       }
       50%{ 
-        box-shadow: 0 0 40px rgba(124, 92, 255, 0.8),
-                    0 0 80px rgba(46, 161, 233, 0.4);
+        box-shadow: 0 0 50px rgba(124, 92, 255, 0.8),
+                    0 0 100px rgba(46, 161, 233, 0.4),
+                    0 0 150px rgba(0, 217, 255, 0.2);
+        opacity: 1;
       }
     }
     
     .avatar{
       position: relative;
-      width: 140px;
-      height: 140px;
-      border-radius: 28px;
+      width: 150px;
+      height: 150px;
+      border-radius: 32px;
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.3),
+        rgba(124, 92, 255, 0.2),
         rgba(46, 161, 233, 0.1));
       overflow: hidden;
-      border: 3px solid rgba(124, 92, 255, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 48px rgba(124, 92, 255, 0.3),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(124, 92, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
     }
     
     .avatar img{
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(1.1);
+      filter: brightness(1.15) saturate(1.1);
+    }
+    
+    .head-text{
+      flex: 1;
     }
     
     .head-text h1{
       margin: 0 0 8px 0;
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
-      letter-spacing: -0.8px;
-      background: linear-gradient(135deg, var(--text-main), var(--accent-3));
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--text-main) 0%, var(--accent-3) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: slideInRight 0.8s ease-out;
+      animation: slideInRight 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
     }
     
     @keyframes slideInRight {
       from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(-30px);
       }
       to {
         opacity: 1;
@@ -227,14 +272,20 @@
     }
     
     .head-text p{
-      margin: 8px 0 0 0;
+      margin: 6px 0 0 0;
       color: var(--text-muted);
       font-size: 15px;
       line-height: 1.6;
+      animation: fadeIn 0.9s ease-out 0.2s both;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     
     .tags{
-      margin-top: 16px;
+      margin-top: 14px;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
@@ -245,22 +296,23 @@
       font-weight: 600;
       color: var(--accent-3);
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.15),
-        rgba(46, 161, 233, 0.1));
+        rgba(124, 92, 255, 0.12),
+        rgba(46, 161, 233, 0.08));
       padding: 8px 14px;
       border-radius: 20px;
-      border: 1px solid rgba(124, 92, 255, 0.4);
-      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: default;
+      backdrop-filter: blur(8px);
     }
     
     .tag:hover{
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.25),
-        rgba(46, 161, 233, 0.2));
-      border-color: rgba(124, 92, 255, 0.6);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(124, 92, 255, 0.2);
+        rgba(124, 92, 255, 0.2),
+        rgba(46, 161, 233, 0.15));
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(124, 92, 255, 0.25);
     }
     
     .links{
@@ -268,13 +320,15 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
-      animation: slideInUp 0.8s ease-out 0.2s both;
+      animation: slideInUp 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+      position: relative;
+      z-index: 2;
     }
     
     @keyframes slideInUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
       }
       to {
         opacity: 1;
@@ -287,16 +341,17 @@
       gap: 16px;
       align-items: center;
       padding: 16px 20px;
-      border-radius: 16px;
+      border-radius: 18px;
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.08),
-        rgba(46, 161, 233, 0.05));
+        rgba(124, 92, 255, 0.1),
+        rgba(46, 161, 233, 0.06));
       text-decoration: none;
       color: var(--text-main);
-      border: 1px solid rgba(124, 92, 255, 0.3);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(12px);
     }
     
     .btn::before{
@@ -305,23 +360,42 @@
       inset: 0;
       background: linear-gradient(90deg, 
         transparent,
-        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.15),
         transparent);
       transform: translateX(-100%);
     }
     
-    .btn:hover{
-      transform: translateY(-6px);
-      background: linear-gradient(135deg, 
+    .btn::after{
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      background: linear-gradient(135deg,
         rgba(124, 92, 255, 0.15),
         rgba(46, 161, 233, 0.1));
-      border-color: rgba(124, 92, 255, 0.6);
-      box-shadow: 0 12px 40px rgba(124, 92, 255, 0.25),
-                  0 0 20px rgba(46, 161, 233, 0.15);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .btn:hover{
+      transform: translateY(-8px);
+      background: linear-gradient(135deg, 
+        rgba(124, 92, 255, 0.16),
+        rgba(46, 161, 233, 0.12));
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 
+        0 16px 48px rgba(124, 92, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 40px rgba(46, 161, 233, 0.2);
+    }
+    
+    .btn:hover::after{
+      opacity: 1;
     }
     
     .btn:hover::before{
-      animation: shine 0.6s;
+      animation: shine 0.8s;
     }
     
     @keyframes shine {
@@ -329,28 +403,35 @@
     }
     
     .btn .icon{
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.2),
-        rgba(46, 161, 233, 0.15));
+        rgba(124, 92, 255, 0.15),
+        rgba(46, 161, 233, 0.1));
       flex-shrink: 0;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
     }
     
     .btn:hover .icon{
       background: linear-gradient(135deg, 
-        rgba(124, 92, 255, 0.3),
-        rgba(46, 161, 233, 0.25));
+        rgba(124, 92, 255, 0.25),
+        rgba(46, 161, 233, 0.18));
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(124, 92, 255, 0.2);
     }
     
     .btn .txt{
       display: flex;
       flex-direction: column;
       gap: 4px;
+      position: relative;
+      z-index: 1;
     }
     
     .btn .title{
@@ -369,36 +450,35 @@
       color: var(--text-muted);
       text-align: center;
       line-height: 1.6;
-      animation: fadeIn 1s ease-out 0.4s both;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      animation: fadeIn 1.2s ease-out 0.4s both;
+      position: relative;
+      z-index: 2;
     }
     
     footer{
       margin-top: 28px;
       padding-top: 20px;
-      border-top: 1px solid rgba(124, 92, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       text-align: center;
-      color: rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.08);
       font-size: 12px;
+      position: relative;
+      z-index: 2;
     }
     
     @media (min-width: 600px){
       .links{ grid-template-columns: repeat(2, 1fr); }
       .card{ padding: 56px; }
-      .head{ gap: 32px; }
+      .head{ gap: 36px; }
     }
     
     @media (max-width: 480px){
-      .card{ padding: 28px; }
+      .card{ padding: 32px; }
       .head{ flex-direction: column; text-align: center; }
-      .avatar-wrapper{ width: 100px; height: 100px; }
-      .avatar{ width: 100px; height: 100px; }
-      .avatar-wrapper { margin: 0 auto; }
-      .head-text h1{ font-size: 24px; }
+      .avatar-wrapper{ width: 120px; height: 120px; margin: 0 auto; }
+      .avatar{ width: 120px; height: 120px; }
+      .head-text h1{ font-size: 28px; }
+      .links{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -407,7 +487,7 @@
     <main class="card" aria-labelledby="who">
       <div class="head">
         <div class="avatar-wrapper">
-          <div class="avatar-orb"></div>
+          <div class="avatar-ring"></div>
           <div class="avatar-glow"></div>
           <div class="avatar">
             <img src="1d5e49a4e758e8c9302326802180cb84.jpg" alt="Аватар Фел!лов Вел!кий">
@@ -431,7 +511,7 @@
         <!-- О мне -->
         <a class="btn" href="bio.html">
           <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 20c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 20c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div class="txt">
             <div class="title">О мне</div>
@@ -442,7 +522,7 @@
         <!-- Telegram -->
         <a class="btn" href="https://t.me/feluve" target="_blank" rel="noopener noreferrer">
           <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 4L2 12.5L7.5 15.5L9 20L12 16.5L20 22L22 4Z" fill="#2EA1E9"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 4L2 12.5L7.5 15.5L9 20L12 16.5L20 22L22 4Z" fill="#2EA1E9"/></svg>
           </div>
           <div class="txt">
             <div class="title">Telegram</div>
@@ -453,7 +533,7 @@
         <!-- Почта -->
         <a class="btn" href="mailto:Werovisualics@gmail.com">
           <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 7.5L12 13L21 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 7.5L12 13L21 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/></svg>
           </div>
           <div class="txt">
             <div class="title">Почта</div>
@@ -464,7 +544,7 @@
         <!-- GitHub -->
         <a class="btn" href="https://github.com/longer9829-max" target="_blank" rel="noopener noreferrer">
           <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.68c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.12-1.47-1.12-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.43.2 2.49.1 2.75.64.7 1.03 1.59 1.03 2.68 0 3.83-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z" fill="currentColor"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.68c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.12-1.47-1.12-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.43.2 2.49.1 2.75.64.7 1.03 1.59 1.03 2.68 0 3.83-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z" fill="currentColor"/></svg>
           </div>
           <div class="txt">
             <div class="title">GitHub</div>
@@ -475,7 +555,7 @@
 
       <div class="small">Ищете сотрудничество? Пишите в Telegram или на почту — обычно отвечаю быстро! 💬</div>
 
-      <footer>✨ Создано с любовью к деталям</footer>
+      <footer>✨ Жидкое стекло как на iPhone</footer>
     </main>
   </div>
 </body>
