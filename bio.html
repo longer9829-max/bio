@@ -3,111 +3,188 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>О мне — @feluve</title>
-  <meta name="description" content="Биография Фел!лов Вел!кий — видео-редактор и OSINTer" />
+  <title>Обо мне — Фел!лов Вел!кий (@feluve)</title>
+  <meta name="description" content="Фел!лов Вел!кий — OSINTer, видео-редактор, контент-креатор. Контакты и портфолио." />
+  <meta name="theme-color" content="#071026">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
     :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --accent:#7c5cff;
-      --muted:#9aa4b2;
-      --radius:14px;
+      --bg1:#071026;
       --glass: rgba(255,255,255,0.04);
+      --accent1:#7c5cff;
+      --accent2:#2ea1e9;
+      --muted:#9aa4b2;
+      --card-radius:20px;
+      --glass-border: rgba(255,255,255,0.06);
       color-scheme: dark;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      min-height:100vh;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      background: linear-gradient(180deg,#02040a 0%, #071026 60%), radial-gradient(600px 300px at 10% 10%, rgba(124,92,255,0.06), transparent 10%);
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(600px 300px at 10% 10%, rgba(124,92,255,0.06), transparent 10%), linear-gradient(180deg,var(--bg1) 0%, #0b1424 70%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:28px;
-      color:#e6eef6;
     }
+
+    .wrap{width:100%;max-width:980px}
+
     .card{
-      width:100%;
-      max-width:720px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: var(--radius);
-      padding:28px;
-      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
-      backdrop-filter: blur(6px);
+      border-radius:var(--card-radius);
       overflow:hidden;
-      border:1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid var(--glass-border);
+      padding:28px;
+      box-shadow: 0 12px 48px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(18px) saturate(120%);
+      -webkit-backdrop-filter: blur(18px) saturate(120%);
     }
-    .back-btn{
-      display:inline-flex;
-      gap:6px;
-      align-items:center;
-      text-decoration:none;
-      color:var(--muted);
-      margin-bottom:20px;
-      font-size:14px;
-      transition:color .2s ease;
+
+    .grid{display:grid;grid-template-columns:260px 1fr;gap:28px}
+
+    /* SIDEBAR */
+    .sidebar{
+      display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;padding:14px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);
     }
-    .back-btn:hover{color:#e6eef6}
-    h1{
-      margin:0 0 24px 0;
-      font-size:28px;
-      letter-spacing:-0.5px;
-    }
-    .bio-section{
-      margin-bottom:24px;
-    }
-    .bio-section h2{
-      margin:0 0 12px 0;
-      font-size:18px;
-      color:var(--accent);
-    }
-    .bio-text{
-      line-height:1.7;
-      color:#d0d8e0;
-      font-size:15px;
-    }
-    .bio-text p{
-      margin:0 0 12px 0;
-    }
-    .bio-text p:last-child{margin-bottom:0}
-    footer{
-      margin-top:24px;
-      padding-top:24px;
-      border-top:1px solid rgba(255,255,255,0.05);
-      text-align:center;
-      color:rgba(255,255,255,0.06);
-      font-size:12px;
-    }
+    .avatar{width:140px;height:140px;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,0.12);box-shadow:0 12px 40px rgba(124,92,255,0.12), inset 0 1px 0 rgba(255,255,255,0.06)}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{font-size:20px;margin:12px 0 4px}
+    .handle{color:var(--muted);font-size:13px}
+    .bio-cta{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;justify-content:center;padding:10px 12px;border-radius:12px;text-decoration:none;color:inherit;font-weight:600}
+    .btn-telegram{background:linear-gradient(90deg,var(--accent2),var(--accent1));color:white}
+    .btn-mail{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+    .socials{display:flex;gap:10px;margin-top:8px}
+    .socials a{display:inline-flex;padding:8px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+
+    /* MAIN */
+    .main{padding:6px 6px 6px 0}
+    .hero{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .hero-left{max-width:62%}
+    .title{font-size:28px;font-weight:700;margin-bottom:8px;background:linear-gradient(90deg,#fff, var(--accent1));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .lead{color:var(--muted);margin-bottom:12px}
+
+    .cards{display:flex;gap:12px;flex-wrap:wrap}
+    .card-sm{flex:1;min-width:140px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .card-sm b{display:block;font-size:18px}
+
+    /* ABOUT */
+    .section{margin-top:18px}
+    .section h3{margin:0 0 8px 0}
+    .text{color:var(--muted);line-height:1.6}
+
+    /* TIMELINE */
+    .timeline{margin-top:12px;border-left:2px solid rgba(255,255,255,0.03);padding-left:16px}
+    .event{position:relative;padding:12px 0}
+    .event::before{content:'';position:absolute;left:-10px;top:18px;width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--accent1),var(--accent2));box-shadow:0 4px 14px rgba(124,92,255,0.12)}
+    .event .date{color:var(--muted);font-size:13px}
+
+    /* SKILLS */
+    .skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .skill{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:999px;font-size:13px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* Footer */
+    .foot{margin-top:18px;text-align:center;color:rgba(255,255,255,0.07);font-size:13px}
+
+    /* Responsive */
+    @media (max-width:880px){.grid{grid-template-columns:1fr;}.hero-left{max-width:100%}.avatar{width:120px;height:120px}}
+
+    /* micro animations */
+    .btn-telegram{transition:transform .18s ease, box-shadow .18s ease}
+    .btn-telegram:hover{transform:translateY(-4px);box-shadow:0 10px 36px rgba(124,92,255,0.18)}
+    .event{transition:transform .18s ease}
+    .event:hover{transform:translateY(-4px)}
   </style>
 </head>
 <body>
-  <main class="card">
-    <a class="back-btn" href="index.html">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Назад
-    </a>
+  <div class="wrap">
+    <div class="card">
+      <div class="grid">
+        <aside class="sidebar">
+          <div class="avatar"><img src="1d5e49a4e758e8c9302326802180cb84.jpg" alt="Аватар"></div>
+          <h1>Фел!лов Вел!кий</h1>
+          <div class="handle">@feluve • OSINTer • Редактор</div>
 
-    <h1>О мне</h1>
+          <div class="bio-cta">
+            <a class="btn btn-telegram" href="https://t.me/feluve" target="_blank" rel="noopener">Написать в Telegram</a>
+            <a class="btn btn-mail" href="mailto:Werovisualics@gmail.com">Написать на почту</a>
+          </div>
 
-    <div class="bio-section">
-      <h2>История</h2>
-      <div class="bio-text">
-        <p>Привет! Я Фел!лов Вел!кий, известен в интернете как @feluve.</p>
-        <p>В 2023 году я начал работать видео-редактором. Создавал эдиты под музыку — работал в стиле Ветрова Ронсона, экспериментировал с монтажом и синхронизацией. Это был мой первый серьёзный шаг в контент-креатинге.</p>
-        <p>Спустя некоторое время я решил сделать паузу и переосмыслить свой путь. Именно тогда я открыл для себя мир OSINT — Open Source Intelligence. Это увлекло меня намного больше.</p>
+          <div class="socials" aria-hidden="true">
+            <a href="https://github.com/longer9829-max" target="_blank" rel="noopener" title="GitHub">GitHub</a>
+            <a href="chat.html" title="Чат">Чат</a>
+            <a href="index.html" title="Главная">Главная</a>
+          </div>
+
+          <div style="margin-top:12px;color:var(--muted);font-size:13px">Готов к сотрудничеству — пишите в Telegram</div>
+        </aside>
+
+        <main class="main">
+          <div class="hero">
+            <div class="hero-left">
+              <div class="title">Привет — я Фел!лов Вел!кий</div>
+              <div class="lead">Я начинающий OSINT-исследователь и видео-редактор. Помогаю находить и анализировать информацию, делаю монтаж и визуальные истории.</div>
+
+              <div class="cards" style="margin-top:12px">
+                <div class="card-sm"><b>OSINT</b><span class="text">Сбор, верификация, анализ открытых данных</span></div>
+                <div class="card-sm"><b>Видео</b><span class="text">Монтаж, цветокоррекция, синхронизация под музыку</span></div>
+                <div class="card-sm"><b>Контент</b><span class="text">Сторителлинг, креативные концепции</span></div>
+              </div>
+
+              <div class="section">
+                <h3>Обо мне</h3>
+                <div class="text">
+                  Привет! Я начал с монтажа музыкальных эдитов, затем увлёкся OSINT — и сейчас комбинирую навыки монтажа и анализа информации, чтобы создавать информативный и визуально приятный контент.
+                </div>
+              </div>
+
+              <div class="section">
+                <h3>Навыки</h3>
+                <div class="skills">
+                  <span class="skill">OSINT</span>
+                  <span class="skill">Видео-монтаж</span>
+                  <span class="skill">Adobe Premiere</span>
+                  <span class="skill">After Effects</span>
+                  <span class="skill">Аналитика</span>
+                </div>
+              </div>
+
+              <div class="section">
+                <h3>Карьера / вехи</h3>
+                <div class="timeline">
+                  <div class="event"><div class="date">2023</div><div class="text">Начал делать видео-эдиты, экспериментировал со стилями монтажа.</div></div>
+                  <div class="event"><div class="date">2024</div><div class="text">Погрузился в OSINT — изучал методы сбора и верификации данных.</div></div>
+                  <div class="event"><div class="date">Сейчас</div><div class="text">Комбинирую навыки, работаю над проектами и открыт к предложениям.</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="flex:1;display:flex;align-items:flex-start;justify-content:flex-end;">
+              <!-- Decorative glass panel -->
+              <div style="width:220px;padding:14px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(12px);">
+                <div style="font-weight:700;margin-bottom:10px">Контакты</div>
+                <div style="color:var(--muted);font-size:14px">Телеграм</div>
+                <div style="margin:6px 0 12px"><a href="https://t.me/feluve" target="_blank" rel="noopener" class="btn btn-telegram">@feluve</a></div>
+                <div style="color:var(--muted);font-size:14px">Почта</div>
+                <div style="margin:6px 0 12px"><a href="mailto:Werovisualics@gmail.com" class="btn btn-mail">Werovisualics@gmail.com</a></div>
+                <div style="margin-top:8px;color:var(--muted);font-size:13px">Быстрый чат</div>
+                <div style="margin-top:8px"><a href="chat.html" class="btn" style="background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white">Открыть чат</a></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="foot">© Фел!лов Вел!кий — Сделано с любовью к деталям</div>
+        </main>
       </div>
     </div>
-
-    <div class="bio-section">
-      <h2>Сейчас</h2>
-      <div class="bio-text">
-        <p>Я начинающий OSINTer. Изучаю методы сбора и анализа открытой информации. Учусь искать связи, верифицировать данные, работать с источниками. Это сложно, но интересно.</p>
-        <p>Я не знаменит, но я работаю. Если вас интересует OSINT, анализ информации или видео-редактирование — пишите мне.</p>
-      </div>
-    </div>
-
-    <footer>Спасибо, что прочитали! 🙏</footer>
-  </main>
+  </div>
 </body>
 </html>
