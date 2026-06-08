@@ -1,321 +1,595 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Чат — @feluve</title>
-  <meta name="description" content="Интерактивный чат — жидкое стекло, анимация печати" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    :root{
-      --glass-bg: rgba(255,255,255,0.04);
-      --accent-1: #7c5cff;
-      --accent-2: #2ea1e9;
-      --text: #e6eef6;
-      --muted: #9aa4b2;
-      --bubble-user: rgba(124,92,255,0.14);
-      --bubble-me: rgba(46,161,233,0.12);
-      --radius: 16px;
+<title>Feluve — Central Edits</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#05070a;
+    --card:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.12);
+
+    --blue:#4facfe;
+    --purple:#7b61ff;
+
+    --text:#fff;
+    --muted:#9ca3af;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+.bg{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+}
+
+.bg::before,
+.bg::after{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    filter:blur(140px);
+}
+
+.bg::before{
+    background:#4facfe;
+    top:-200px;
+    left:-200px;
+    animation:float1 15s infinite ease-in-out;
+}
+
+.bg::after{
+    background:#7b61ff;
+    bottom:-250px;
+    right:-200px;
+    animation:float2 18s infinite ease-in-out;
+}
+
+@keyframes float1{
+    50%{
+        transform:translate(100px,80px);
     }
+}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#071026 0%, #0b1424 60%);
-      color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
+@keyframes float2{
+    50%{
+        transform:translate(-120px,-100px);
     }
+}
 
-    .wrap{
-      width:100%;
-      max-width:920px;
+/* NAVBAR */
+
+.navbar{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:1100px;
+
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:14px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    z-index:999;
+
+    opacity:0;
+    transition:.4s;
+}
+
+.navbar.active{
+    opacity:1;
+}
+
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.nav-avatar{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#4facfe,#7b61ff);
+}
+
+.nav-name{
+    font-weight:600;
+}
+
+/* HERO */
+
+.hero{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero-content{
+    transition:.4s ease;
+}
+
+.avatar{
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    background:
+    linear-gradient(
+    135deg,
+    #4facfe,
+    #7b61ff
+    );
+
+    padding:4px;
+
+    box-shadow:
+    0 0 80px rgba(79,172,254,.4),
+    0 0 120px rgba(123,97,255,.3);
+
+    transition:.3s;
+}
+
+.avatar-inner{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    background:#111;
+}
+
+.hero h1{
+    margin-top:30px;
+    font-size:clamp(40px,8vw,72px);
+}
+
+.username{
+    color:#9ca3af;
+    margin-top:10px;
+}
+
+.status{
+    margin-top:20px;
+    color:#7cffb2;
+}
+
+.socials{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 24px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(20px);
+
+    color:white;
+    text-decoration:none;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 30px rgba(123,97,255,.4);
+}
+
+/* SECTIONS */
+
+section{
+    padding:120px 10%;
+}
+
+.section-title{
+    font-size:48px;
+    margin-bottom:40px;
+}
+
+.glass{
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:32px;
+
+    padding:40px;
+}
+
+/* PROJECT */
+
+.project{
+    position:relative;
+    overflow:hidden;
+}
+
+.project::before{
+    content:"";
+    position:absolute;
+    inset:-50%;
+
+    background:
+    radial-gradient(
+    circle,
+    rgba(79,172,254,.25),
+    transparent 60%
+    );
+
+    animation:spin 15s linear infinite;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
     }
-
-    .card{
-      border-radius:24px;
-      padding:20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(18px) saturate(120%);
-      -webkit-backdrop-filter: blur(18px) saturate(120%);
-      box-shadow: 0 10px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-      overflow:hidden;
+    to{
+        transform:rotate(360deg);
     }
+}
 
-    .header{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      padding:18px 20px;
-      border-bottom:1px solid rgba(255,255,255,0.03);
+/* SKILLS */
+
+.skill{
+    margin-bottom:30px;
+}
+
+.skill span{
+    display:block;
+    margin-bottom:12px;
+}
+
+.bar{
+    height:14px;
+    background:#111827;
+    border-radius:100px;
+    overflow:hidden;
+}
+
+.fill{
+    height:100%;
+    border-radius:100px;
+
+    background:
+    linear-gradient(
+    90deg,
+    #4facfe,
+    #7b61ff
+    );
+
+    animation:grow 2s ease;
+}
+
+@keyframes grow{
+    from{
+        width:0;
     }
+}
 
-    .header .title{
-      font-weight:700;
-      font-size:18px;
-      letter-spacing:-0.3px;
-    }
+/* SOCIAL CARDS */
 
-    .chat-area{
-      height:66vh;
-      min-height:480px;
-      overflow:auto;
-      padding:24px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent 40%);
-    }
+.social-grid{
+    display:grid;
+    gap:25px;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+}
 
-    .msg{
-      max-width:72%;
-      padding:12px 14px;
-      border-radius:14px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border:1px solid rgba(255,255,255,0.03);
-      animation: popIn .18s ease-out;
-      box-shadow: 0 8px 20px rgba(2,6,23,0.6);
-      word-break:break-word;
-      font-size:15px;
-      line-height:1.5;
-    }
+.card{
+    padding:35px;
+    border-radius:28px;
 
-    @keyframes popIn{
-      from{ transform: translateY(6px) scale(.995); opacity:0 }
-      to{ transform: translateY(0) scale(1); opacity:1 }
-    }
+    background:rgba(255,255,255,.05);
 
-    .msg.user{
-      align-self:flex-start;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(124,92,255,0.02));
-      border-radius:14px 14px 14px 6px;
-      color:var(--text);
-      border:1px solid rgba(124,92,255,0.12);
-    }
+    backdrop-filter:blur(20px);
 
-    .msg.me{
-      align-self:flex-end;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(46,161,233,0.03));
-      border-radius:14px 14px 6px 14px;
-      color:var(--text);
-      border:1px solid rgba(46,161,233,0.08);
-    }
+    border:1px solid rgba(255,255,255,.08);
 
-    .typing-indicator{
-      width:70px;
-      height:34px;
-      display:flex;
-      gap:6px;
-      align-items:center;
-      justify-content:center;
-      padding:8px;
-      border-radius:16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03);
-      opacity:0.95;
-      transform-origin:left center;
-    }
+    transition:.35s;
+}
 
-    .dot{
-      width:6px;
-      height:6px;
-      background:rgba(255,255,255,0.7);
-      border-radius:50%;
-      opacity:0.8;
-      animation: dot 1s infinite ease-in-out;
-    }
-    .dot:nth-child(2){ animation-delay: 0.15s }
-    .dot:nth-child(3){ animation-delay: 0.3s }
-    @keyframes dot{ 0%{ transform: translateY(0); opacity:.6 } 50%{ transform: translateY(-6px); opacity:1 } 100%{ transform: translateY(0); opacity:.6 } }
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 50px rgba(123,97,255,.25);
+}
 
-    .input-bar{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      padding:16px;
-      border-top:1px solid rgba(255,255,255,0.03);
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-    }
+/* FOOTER */
 
-    .input{
-      flex:1;
-      display:flex;
-      gap:12px;
-      align-items:center;
-      padding:10px 12px;
-      border-radius:12px;
-      background: rgba(255,255,255,0.02);
-      border:1px solid rgba(255,255,255,0.03);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
+footer{
+    text-align:center;
+    padding:150px 20px;
+}
 
-    .input input{
-      border:0;
-      outline:0;
-      background:transparent;
-      color:var(--text);
-      width:100%;
-      font-size:15px;
-    }
+footer h2{
+    font-size:clamp(50px,10vw,140px);
 
-    .send-btn{
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      color:white;
-      padding:10px 16px;
-      border-radius:12px;
-      border: none;
-      cursor:pointer;
-      font-weight:600;
-      box-shadow: 0 8px 24px rgba(124,92,255,0.18);
-      transition: transform .16s ease; 
-    }
-    .send-btn:active{ transform: translateY(2px) }
+    background:
+    linear-gradient(
+    90deg,
+    #4facfe,
+    #7b61ff
+    );
 
-    /* Liquid highlight for new message */
-    .msg.me::after{
-      content:'';
-      position:absolute;
-      width:120px;
-      height:120px;
-      border-radius:50%;
-      right:-40px;
-      bottom:-40px;
-      background: radial-gradient(circle at 30% 30%, rgba(46,161,233,0.12), transparent 40%);
-      filter: blur(18px);
-      pointer-events:none;
-      opacity:0.8;
-    }
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-    /* smooth scroll placeholder */
-    .chat-area::-webkit-scrollbar{ width:8px }
-    .chat-area::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.04); border-radius:8px }
+footer p{
+    margin-top:20px;
+    color:#9ca3af;
+}
 
-    .hint{
-      color:var(--muted);
-      font-size:13px;
-      padding:8px 20px 12px 20px;
-    }
-
-    .me-bubble-anim{
-      transform-origin: right center;
-      animation: floatUp .5s cubic-bezier(.2,.9,.3,1);
-    }
-    @keyframes floatUp{ from{ transform: translateY(10px) scale(.98); opacity:0 } to{ transform: translateY(0) scale(1); opacity:1 } }
-
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="header">
-        <div style="flex:1">
-          <div class="title">Чат — Жидкое стекло</div>
-          <div class="hint">Печатайте в поле. Видно анимацию печати и плавное появление сообщений.</div>
-        </div>
-        <div style="opacity:.9; font-size:13px">@feluve</div>
-      </div>
 
-      <div id="chat" class="chat-area" aria-live="polite"></div>
+<div class="bg"></div>
 
-      <div class="input-bar">
-        <div class="input">
-          <input id="textInput" type="text" placeholder="Напишите сообщение..." aria-label="Сообщение">
-        </div>
-        <button id="sendBtn" class="send-btn">Отправить</button>
-      </div>
-    </div>
-  </div>
+<nav class="navbar" id="navbar">
 
-  <template id="tplMe">
-    <div class="msg me me-bubble-anim"></div>
-  </template>
-  <template id="tplUser">
-    <div class="msg user"></div>
-  </template>
-  <template id="tplTyping">
-    <div class="typing-indicator user" aria-hidden="true">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-  </template>
+<div class="nav-left">
+<div class="nav-avatar"></div>
 
-  <script>
-    // Simple interactive chat behavior: show typing indicator while user is typing, animate message on send.
-    const input = document.getElementById('textInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const chat = document.getElementById('chat');
-    const tplMe = document.getElementById('tplMe').content;
-    const tplUser = document.getElementById('tplUser').content;
-    const tplTyping = document.getElementById('tplTyping').content;
+<div>
+<div class="nav-name">
+Фел!лов Вел!кий
+</div>
 
-    let typingNode = null;
-    let typingTimeout = null;
+<div style="color:#9ca3af">
+@Feluve
+</div>
+</div>
+</div>
 
-    function showTyping(){
-      if(typingNode) return;
-      typingNode = tplTyping.cloneNode(true);
-      chat.appendChild(typingNode);
-      chat.scrollTop = chat.scrollHeight;
-    }
-    function hideTyping(){
-      if(!typingNode) return;
-      chat.removeChild(typingNode);
-      typingNode = null;
-    }
+</nav>
 
-    input.addEventListener('input', () => {
-      // show typing while user types; hide 800ms after stop
-      showTyping();
-      if(typingTimeout) clearTimeout(typingTimeout);
-      typingTimeout = setTimeout(()=>{
-        hideTyping();
-      }, 800);
-    });
+<section class="hero">
 
-    function appendMessage(text, who='me'){
-      hideTyping();
-      const tpl = who === 'me' ? tplMe : tplUser;
-      const node = tpl.cloneNode(true).querySelector('.msg');
-      node.textContent = text;
-      chat.appendChild(node.parentElement ? node.parentElement : node);
-      // ensure class addition and animation
-      node.classList.add(who === 'me' ? 'me' : 'user');
-      // scroll into view
-      chat.scrollTop = chat.scrollHeight + 200;
-    }
+<div class="hero-content">
 
-    sendBtn.addEventListener('click', () => {
-      const v = input.value.trim();
-      if(!v) return;
-      // emulate a short typing delay and then append
-      appendMessage(v, 'me');
-      input.value = '';
-      // small reply simulation
-      setTimeout(()=>{
-        appendMessage('Принял: '+v, 'user');
-      }, 700 + Math.random()*600);
-    });
+<div class="avatar" id="avatar">
+<div class="avatar-inner"></div>
+</div>
 
-    input.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter'){
-        e.preventDefault();
-        sendBtn.click();
-      }
-    });
+<h1>Фел!лов Вел!кий</h1>
 
-    // initial welcome
-    setTimeout(()=>{
-      appendMessage('Привет! Это демонстрация чата с эффектом "жидкого стекла". Напишите что-нибудь.', 'user');
-    }, 400);
-  </script>
+<div class="username">@Feluve</div>
+
+<div class="status">● Online</div>
+
+<div class="socials">
+
+<a href="#" class="btn">Telegram</a>
+
+<a href="#" class="btn">TikTok</a>
+
+<a href="#" class="btn">YouTube</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Обо мне
+</h2>
+
+<div class="glass">
+
+<p>
+Привет.
+</p>
+
+<br>
+
+<p>
+Меня зовут Feluve.
+</p>
+
+<br>
+
+<p>
+Я занимаюсь монтажом видео,
+созданием контента
+и развитием проекта Central Edits.
+</p>
+
+<br>
+
+<p>
+Люблю современный дизайн,
+визуальные эффекты
+и качественный монтаж.
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Central Edits
+</h2>
+
+<div class="glass project">
+
+<h3 style="font-size:40px;">
+CENTRAL EDITS
+</h3>
+
+<br>
+
+<p>
+Творческий проект по созданию видео,
+монтажу и визуальному контенту.
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Навыки
+</h2>
+
+<div class="skill">
+<span>Video Editing</span>
+<div class="bar">
+<div class="fill" style="width:95%"></div>
+</div>
+</div>
+
+<div class="skill">
+<span>Motion Design</span>
+<div class="bar">
+<div class="fill" style="width:85%"></div>
+</div>
+</div>
+
+<div class="skill">
+<span>Content Creation</span>
+<div class="bar">
+<div class="fill" style="width:90%"></div>
+</div>
+</div>
+
+<div class="skill">
+<span>Web Design</span>
+<div class="bar">
+<div class="fill" style="width:80%"></div>
+</div>
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Социальные сети
+</h2>
+
+<div class="social-grid">
+
+<div class="card">
+Telegram
+</div>
+
+<div class="card">
+TikTok
+</div>
+
+<div class="card">
+YouTube
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h2>
+CENTRAL EDITS
+</h2>
+
+<p>
+Made by Feluve
+</p>
+
+</footer>
+
+<script>
+
+const navbar =
+document.getElementById("navbar");
+
+window.addEventListener(
+"scroll",
+()=>{
+if(window.scrollY > 150){
+navbar.classList.add("active");
+}else{
+navbar.classList.remove("active");
+}
+}
+);
+
+const avatar =
+document.getElementById("avatar");
+
+document.addEventListener(
+"mousemove",
+(e)=>{
+
+const x =
+(e.clientX/window.innerWidth-.5)*20;
+
+const y =
+(e.clientY/window.innerHeight-.5)*20;
+
+avatar.style.transform =
+`rotateY(${x}deg)
+ rotateX(${-y}deg)`;
+}
+);
+
+</script>
+
 </body>
 </html>
