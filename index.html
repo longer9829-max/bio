@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Био — @feluve</title>
-  <meta name="description" content="Фел!лов Вел!кий • OSINTer • делаю EDM/эдиты • Контакты и портфолио" />
+  <meta name="description" content="Фел!лов Вел!кий • OSINTer • Редактор • Контакты" />
   <style>
     :root{
       --bg:#0f1724;
@@ -43,19 +43,49 @@
       gap:18px;
       align-items:center;
     }
+    .avatar-wrapper{
+      position:relative;
+      width:120px;
+      height:120px;
+      flex:0 0 120px;
+    }
+    .avatar-glow{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:linear-gradient(135deg, rgba(124,92,255,0.4), rgba(46,161,233,0.2));
+      border-radius:22px;
+      animation: glow-pulse 3s ease-in-out infinite;
+      filter: blur(12px);
+    }
     .avatar{
-      width:96px;
-      height:96px;
-      border-radius:18px;
-      background:var(--glass);
-      flex:0 0 96px;
+      position:relative;
+      width:120px;
+      height:120px;
+      border-radius:22px;
+      background:linear-gradient(135deg, rgba(124,92,255,0.3), rgba(46,161,233,0.1));
       overflow:hidden;
+      border:2px solid rgba(124,92,255,0.5);
       display:flex;
       align-items:center;
       justify-content:center;
-      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 32px rgba(124,92,255,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
     }
-    .avatar img{width:100%;height:100%;object-fit:cover}
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    @keyframes glow-pulse {
+      0%, 100%{
+        box-shadow: 0 0 20px rgba(124,92,255,0.4), 0 0 40px rgba(124,92,255,0.2);
+      }
+      50%{
+        box-shadow: 0 0 30px rgba(124,92,255,0.6), 0 0 60px rgba(124,92,255,0.3);
+      }
+    }
     h1{
       margin:0;
       font-size:20px;
@@ -75,10 +105,10 @@
     .tag{
       font-size:13px;
       color:var(--muted);
-      background:rgba(255,255,255,0.02);
+      background:rgba(124,92,255,0.1);
       padding:6px 10px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,0.02);
+      border:1px solid rgba(124,92,255,0.3);
     }
     .links{
       margin-top:18px;
@@ -96,11 +126,16 @@
       text-decoration:none;
       color:inherit;
       border:1px solid rgba(255,255,255,0.03);
-      transition:transform .14s ease, box-shadow .14s ease;
+      transition:transform .14s ease, box-shadow .14s ease, background .14s ease;
     }
-    .btn:hover{ transform:translateY(-4px); box-shadow: 0 8px 30px rgba(124,92,255,0.12) }
+    .btn:hover{ 
+      transform:translateY(-4px);
+      background:linear-gradient(90deg, rgba(124,92,255,0.1), rgba(124,92,255,0.05));
+      box-shadow: 0 8px 30px rgba(124,92,255,0.12);
+      border-color:rgba(124,92,255,0.3);
+    }
     .btn .icon{
-      width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.03);
+      width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(124,92,255,0.1);
       flex:0 0 36px;
     }
     .btn .txt{display:flex;flex-direction:column}
@@ -121,18 +156,21 @@
 <body>
   <main class="card" aria-labelledby="who">
     <div class="head">
-      <div class="avatar">
-        <img src="1d5e49a4e758e8c9302326802180cb84.jpg" alt="Аватар Фел!лов Вел!кий">
+      <div class="avatar-wrapper">
+        <div class="avatar-glow"></div>
+        <div class="avatar">
+          <img src="1d5e49a4e758e8c9302326802180cb84.jpg" alt="Аватар Фел!лов Вел!кий">
+        </div>
       </div>
       <div>
         <h1 id="who">Фел!лов Вел!кий • @feluve</h1>
-        <p class="lead">OSINTer • делаю EDM/эдиты • продумываю треки, собираю информацию, делаю монтаж и креатив.</p>
+        <p class="lead">OSINTer • Редактор • делаю монтаж, анализирую информацию и создаю контент</p>
 
         <div class="tags" aria-hidden="true">
           <span class="tag">OSINT</span>
-          <span class="tag">EDM</span>
           <span class="tag">Редактура</span>
-          <span class="tag">Продакшн</span>
+          <span class="tag">Монтаж</span>
+          <span class="tag">Контент</span>
         </div>
       </div>
     </div>
@@ -152,7 +190,7 @@
       <!-- Почта для контактов -->
       <a class="btn" href="mailto:Werovisualics@gmail.com">
         <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 7.5L12 13L21 7.5" stroke="#9aa4b2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="6" width="18" height="12" rx="2" stroke="#9aa4b2" stroke-width="1.6"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 7.5L12 13L21 7.5" stroke="#7c5cff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="6" width="18" height="12" rx="2" stroke="#7c5cff" stroke-width="1.6" fill="none"/></svg>
         </div>
         <div class="txt">
           <div class="title">Написать на почту</div>
@@ -160,21 +198,10 @@
         </div>
       </a>
 
-      <!-- Портфолио / Работы -->
-      <a class="btn" href="https://longer9829-max.github.io" target="_blank" rel="noopener noreferrer">
-        <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect width="18" height="12" x="3" y="6" rx="2" stroke="#7c5cff" stroke-width="1.6" fill="none"/><path d="M7 10h10M7 14h10" stroke="#7c5cff" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <div class="txt">
-          <div class="title">Портфолио</div>
-          <div class="sub">Смотреть работы</div>
-        </div>
-      </a>
-
       <!-- GitHub -->
       <a class="btn" href="https://github.com/longer9829-max" target="_blank" rel="noopener noreferrer">
         <div class="icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.68c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.12-1.47-1.12-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.43.2 2.49.1 2.75.64.7 1.03 1.59 1.03 2.68 0 3.83-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z" fill="#e6eef6"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.68c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.12-1.47-1.12-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.32.1-2.75 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.43.2 2.49.1 2.75.64.7 1.03 1.59 1.03 2.68 0 3.83-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z" fill="#7c5cff"/></svg>
         </div>
         <div class="txt">
           <div class="title">GitHub</div>
